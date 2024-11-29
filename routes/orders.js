@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
         if (!orderList) {
             return res.status(500).json({ success: false });
         }
-        res.status(200).send(orderList);
+        return res.status(200).send(orderList);
     } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+        return res.status(500).json({ success: false, error: err.message });
     }
 });
 
@@ -32,9 +32,9 @@ router.get('/:id', async (req, res) => {
         if (!order) {
             return res.status(500).json({ success: false });
         }
-        res.status(200).send(order);
+        return res.status(200).send(order);
     } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+        return res.status(500).json({ success: false, error: err.message });
     }
 });
 
@@ -82,9 +82,9 @@ router.post('/', async (req, res) => {
             return res.status(400).send('The order could not be created!');
         }
 
-        res.status(200).send(order);
+        return res.status(200).send(order);
     } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+        return res.status(500).json({ success: false, error: err.message });
     }
 });
 
@@ -100,7 +100,7 @@ router.put('/:id',async (req, res)=> {
     if(!order)
     return res.status(400).send('the order cannot be created!')
 
-    res.send(order);
+    return res.send(order);
 })
 
 
@@ -128,7 +128,7 @@ router.get('/get/totalsales', async (req, res) => {
         return res.status(400).send('The order sales cannot be generated');
     }
 
-    res.send({ totalSales: totalSales[0]?.totalSales || 0 });
+    return res.send({ totalSales: totalSales[0]?.totalSales || 0 });
 });
 
 
@@ -137,9 +137,9 @@ router.get(`/get/count`, async (req, res) => {
     const orderCount = await Order.countDocuments((count) => count)
 
     if(!orderCount){
-        res.status(500).json({success : false});
+        return res.status(500).json({success : false});
     }
-    res.send({
+    return res.send({
         orderCount : orderCount
     });
 })
@@ -153,9 +153,9 @@ router.get(`/get/userorders/:userid`, async (req, res) => {
             }}).sort({'dateOrdered' : -1});
 
     if(!userorderList){
-        res.status(500).json({success : false});
+        return res.status(500).json({success : false});
     }
-    res.send(userorderList);
+    return res.send(userorderList);
 
 })
 

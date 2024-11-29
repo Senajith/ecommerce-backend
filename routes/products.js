@@ -45,18 +45,18 @@ router.get(`/`, async (req, res) =>{
     const productList = await Product.find(filter).populate('category');
 
     if(!productList) {
-        res.status(500).json({success: false})
+        return res.status(500).json({success: false})
     } 
-    res.send(productList);
+    return res.send(productList);
 })
 
 router.get(`/:id`, async (req, res) =>{
     const product = await Product.findById(req.params.id).populate('category');
 
     if(!product) {
-        res.status(500).json({success: false})
+        return res.status(500).json({success: false})
     } 
-    res.send(product);
+    return res.send(product);
 })
 
 router.post(`/`, uploadOptions.single('image'), async (req, res) =>{
@@ -83,7 +83,7 @@ router.post(`/`, uploadOptions.single('image'), async (req, res) =>{
     if(!product) 
     return res.status(500).send('The product cannot be created')
 
-    res.send(product);
+    return res.send(product);
 })
 
 router.put('/:id',async (req, res)=> {
@@ -125,7 +125,7 @@ router.put('/:id',async (req, res)=> {
     if(!updatedProduct)
     return res.status(500).send('the updatedProduct cannot be updated!')
 
-    res.send(updatedProduct);
+    return res.send(updatedProduct);
 })
 
 router.delete('/:id', (req, res)=>{
@@ -146,7 +146,7 @@ router.get(`/get/count`, async (req, res) =>{
     if(!productCount) {
         res.status(500).json({success: false})
     } 
-    res.send({
+    return res.send({
         productCount: productCount
     });
 })
@@ -156,9 +156,9 @@ router.get(`/get/featured/:count`, async (req, res) =>{
     const products = await Product.find({isFeatured: true}).limit(+count);
 
     if(!products) {
-        res.status(500).json({success: false})
+        return res.status(500).json({success: false})
     } 
-    res.send(products);
+    return res.send(products);
 })
 
 router.put(
@@ -192,7 +192,7 @@ router.put(
             return res.status(500).send('The product could not be updated');
         }
 
-        res.send(updatedProduct);
+        return res.send(updatedProduct);
     }
 )
 

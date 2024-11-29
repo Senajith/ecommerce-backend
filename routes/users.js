@@ -8,9 +8,9 @@ router.get(`/`, async (req, res) =>{
     const userList = await User.find().select('name email phone');
 
     if(!userList) {
-        res.status(500).json({success: false})
+        return res.status(500).json({success: false})
     } 
-    res.send(userList);
+    return res.send(userList);
 })
 
 
@@ -18,9 +18,9 @@ router.get(`/:id`, async (req, res) =>{
     const userList = await User.find().select('-passwordHash');
 
     if(!userList) {
-        res.status(500).json({success: false})
+        return res.status(500).json({success: false})
     } 
-    res.send(userList);
+    return res.send(userList);
 })
 
 router.post('/', async (req,res)=>{
@@ -42,7 +42,7 @@ router.post('/', async (req,res)=>{
     if(!user)
     return res.status(400).send('the user cannot be created!')
 
-    res.send(user);
+    return res.send(user);
 })
 
 router.put('/:id',async (req, res)=> {
@@ -75,7 +75,7 @@ router.put('/:id',async (req, res)=> {
     if(!user)
     return res.status(400).send('the user cannot be created!')
 
-    res.send(user);
+    return res.send(user);
 })
 
 router.post('/login', async (req, res) => {
@@ -120,16 +120,16 @@ router.post('/register', async (req,res)=>{
     if(!user)
     return res.status(400).send('the user cannot be created!')
 
-    res.send(user);
+    return res.send(user);
 });
 
 router.get(`/get/count`, async (req, res) =>{
     const userCount = await User.countDocuments((count) => count)
 
     if(!userCount) {
-        res.status(500).json({success: false})
+        return res.status(500).json({success: false})
     } 
-    res.send({
+    return res.send({
         userCount: userCount
     });
 });
