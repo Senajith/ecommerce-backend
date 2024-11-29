@@ -6,7 +6,8 @@ function authJwt() {
     const api = process.env.API_URL;
     return jwt({
         secret,
-        algorithms: ['HS256']
+        algorithms: ['HS256'],
+        isRevoked
     }).unless({
         path: [
             {url: /\/public\/uploads(.*)/, methods:['GET', 'OPTIONS']},
@@ -18,12 +19,12 @@ function authJwt() {
     })
 }
 
-async function isRevoked(req,payload,done){
-    if(!payload){
-        done(null,true)
+async function isRevoked(req,token){
+    if(!token.payload.isAdmin){
+        return true;
     }
 
-    done();
+    return false;
 }
 
 module.exports = authJwt;
