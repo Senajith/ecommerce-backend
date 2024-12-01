@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const authJwt = require("./helper/jwt");
-const errrorHandler = require("./helper/error-handler");
+// const errrorHandler = require("./helper/error-handler");
 
 const api = process.env.API_URL;
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 app.use(authJwt());
-app.use(errrorHandler);
+// app.use(errrorHandler);
 
 //Routers
 const productsRouter = require("./routers/products");
