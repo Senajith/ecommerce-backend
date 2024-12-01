@@ -26,7 +26,7 @@ const categoriesRouter = require("./routers/categories");
 const ordersRouter = require("./routers/orders");
 
 app.use(`${api}/products`, productsRouter);
-app.use(`/users`, usersRouter);
+app.use(`${api}/users`, usersRouter);
 app.use(`${api}/categories`, categoriesRouter);
 app.use(`${api}/orders`, ordersRouter);
 
